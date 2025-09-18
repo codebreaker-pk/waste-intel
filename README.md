@@ -128,3 +128,7 @@ waste-intel/
 
 ## ⭐ Show Your Support
 If you like this project, give it a **star ⭐ on GitHub** — it helps a lot!
+
+## 📃 License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
