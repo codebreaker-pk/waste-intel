@@ -4,6 +4,7 @@
 
 It is now deployed live on **AWS Elastic Beanstalk (no Docker)** for public access.  
 
+[🔴 Live Demo](http://waste-intel-env.eba-8yjfan8t.ap-south-1.elasticbeanstalk.com) ·
 ---
 
 ## ✨ Features
