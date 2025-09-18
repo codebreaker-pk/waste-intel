@@ -1,0 +1,24 @@
+{
+  "target": "Recycling Rate (%)",
+  "categorical": [
+    "City/District",
+    "Waste Type",
+    "Disposal Method",
+    "Density_Bin"
+  ],
+  "numerical": [
+    "Waste Generated (Tons/Day)",
+    "Population Density (People/km\u00b2)",
+    "Municipal Efficiency Score (1-10)",
+    "Cost of Waste Management (\u20b9/Ton)",
+    "Awareness Campaigns Count",
+    "Landfill Capacity (Tons)",
+    "Year",
+    "Latitude",
+    "Longitude",
+    "Utilization_Ratio",
+    "Cost_Efficiency",
+    "Campaign_Intensity",
+    "Waste_to_Density"
+  ]
+}

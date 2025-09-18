@@ -1,0 +1,18 @@
+{
+  "model": "catboost_te",
+  "params": {
+    "depth": 8,
+    "learning_rate": 0.03,
+    "l2_leaf_reg": 6,
+    "bagging_temperature": 0.5
+  },
+  "MAE": 13.914825784139655,
+  "RMSE": 16.111040439182865,
+  "R2": 0.0010151012657784175,
+  "te_features": [
+    "TE_City_District",
+    "TE_Waste_Type",
+    "TE_Disposal_Method",
+    "TE_Waste_Method"
+  ]
+}

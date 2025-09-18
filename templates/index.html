@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero card glass mb-4">
+  <div class="card-body d-lg-flex align-items-center justify-content-between">
+    <div>
+      <h1 class="h4 mb-1">Predict Recycling Rate (%)</h1>
+      <p class="text-muted mb-0">Interactive, responsive, and ready to demo.</p>
+    </div>
+    <div class="small text-muted d-none d-lg-block">Live what-if analysis • Dark mode • Method comparison</div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card glass">
+      <div class="card-body">
+        <form id="predictForm" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">City/District</label>
+            <select class="form-select live" name="city" required>
+              {% for c in cities %}<option value="{{c}}">{{c}}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Year</label>
+            <input type="number" class="form-control live" name="year" value="2021" min="2019" max="2025" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Waste Type</label>
+            <select class="form-select live" name="waste_type" required>
+              {% for w in waste %}<option value="{{w}}">{{w}}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Disposal Method</label>
+            <select class="form-select live" name="method" required>
+              {% for m in methods %}<option value="{{m}}">{{m}}</option>{% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Waste Generated (Tons/Day)</label>
+            <input type="number" class="form-control live" step="0.01" min="0" name="waste_gen" value="3000" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Population Density (People/km²)</label>
+            <input type="number" class="form-control live" step="1" min="0" name="pop_density" value="10000" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Municipal Efficiency (1–10)</label>
+            <input type="number" class="form-control live" step="1" min="1" max="10" name="eff_score" value="7" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Cost (₹/Ton)</label>
+            <input type="number" class="form-control live" step="1" min="0" name="cost" value="2500" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Awareness Campaigns</label>
+            <input type="number" class="form-control live" step="1" min="0" name="campaigns" value="10" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Landfill Capacity (Tons)</label>
+            <input type="number" class="form-control live" step="1" min="0" name="capacity" value="60000" required>
+          </div>
+
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-primary px-4" type="submit"><i class="bi bi-magic"></i> Predict</button>
+            <button id="liveBtn" class="btn btn-outline-primary" type="button"><i class="bi bi-broadcast"></i> Live update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="resultsCard" class="card glass mt-4 d-none">
+      <div class="card-body">
+        <div class="row g-4 align-items-center">
+          <div class="col-auto">
+            <div id="gauge" class="gauge" style="--p: 0;">
+              <span id="predVal" class="gauge-num">--%</span>
+            </div>
+          </div>
+          <div class="col">
+            <h6 class="mb-1">Predicted Recycling Rate</h6>
+            <p class="text-muted small mb-2">Based on inputs & learned patterns.</p>
+            <div class="d-flex flex-wrap gap-2" id="chips">
+              <!-- chips injected by JS -->
+            </div>
+          </div>
+          <div class="col-auto">
+            <span id="predBadge" class="badge bg-secondary px-3 py-2">—</span>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h6 class="mb-2">Compare disposal methods</h6>
+          <div class="table-responsive">
+            <table class="table align-middle small">
+              <thead><tr><th>Method</th><th style="width:65%">Predicted %</th><th>Δ</th></tr></thead>
+              <tbody id="cmpBody">
+                <!-- rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+          <canvas id="cmpChart" height="120"></canvas>
+          <p class="text-muted small mb-0 mt-2"><i class="bi bi-info-circle"></i> “Δ” is relative to your selected method.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insights -->
+  <div class="col-lg-5">
+    <div class="card glass">
+      <div class="card-body">
+        <h6 class="mb-3">Insights</h6>
+        {% if charts_exist %}
+          <img class="img-fluid rounded mb-3" src="{{ url_for('static', filename='eda_city_top10.png') }}" alt="Top cities">
+          <img class="img-fluid rounded mb-3" src="{{ url_for('static', filename='eda_method.png') }}" alt="By method">
+          <img class="img-fluid rounded" src="{{ url_for('static', filename='eda_year.png') }}" alt="Yearly trend">
+        {% else %}
+          <p class="text-muted small">Run EDA to export charts into <code>static/</code>.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
